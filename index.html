@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>The Bosphorus Has Changed</title>
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <header class="hero">
+    <video
+      class="hero__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      aria-hidden="true"
+    >
+      <source src="assets/hero-video.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero__shade"></div>
+
+    <div class="hero__content">
+      <p class="eyebrow">THE BOSPHORUS, 2006–2025</p>
+
+      <h1>
+        The Bosphorus has not gotten quieter.
+        <span>Its ships have gotten bigger.</span>
+      </h1>
+
+      <p class="dek">
+        Turkish government data show fewer vessels passing through the strait,
+        even as total tonnage and average ship size increased.
+      </p>
+
+      <a class="scroll-cue" href="#ship-story">
+        Scroll <span aria-hidden="true">↓</span>
+      </a>
+    </div>
+
+    <p class="credit">Video: Pexels</p>
+  </header>
+
+  <main>
+    <section class="intro prose reveal-section">
+      <p>
+        The Bosphorus connects the Black Sea with the Sea of Marmara and,
+        beyond it, the Mediterranean.
+      </p>
+
+      <p>
+        Falling vessel counts might suggest that the waterway became less busy.
+        The data tell a different story.
+      </p>
+    </section>
+
+    <section id="ship-story" class="scrolly">
+      <div class="scrolly__graphic">
+        <div class="ship-stage">
+          <img
+            id="ship-image"
+            src="assets/ship-small.png"
+            alt="Illustration showing ships becoming larger between 2006 and 2025"
+          >
+
+          <div class="ship-label">
+            <span id="ship-year">2006</span>
+            <strong id="ship-stat">A smaller average vessel</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="scrolly__text">
+        <article
+          class="step is-active"
+          data-image="assets/ship-small.png"
+          data-year="2006"
+          data-stat="A smaller average vessel"
+        >
+          <p class="step__number">01</p>
+
+          <h2>Start in 2006.</h2>
+
+          <p>
+            Nearly 55,000 vessels passed through the Bosphorus that year.
+            The average ship was much smaller than the vessels crossing today.
+          </p>
+        </article>
+
+        <article
+          class="step"
+          data-image="assets/ship-medium.png"
+          data-year="Midway"
+          data-stat="Fewer ships, but larger ones"
+        >
+          <p class="step__number">02</p>
+
+          <h2>The number of crossings began to fall.</h2>
+
+          <p>
+            But the ships did not simply disappear. The average vessel passing
+            through the strait grew larger.
+          </p>
+        </article>
+
+        <article
+          class="step"
+          data-image="assets/ship-large.png"
+          data-year="2025"
+          data-stat="Average ship size rose about 78%"
+        >
+          <p class="step__number">03</p>
+
+          <h2>By 2025, the traffic looked different.</h2>
+
+          <p>
+            Vessel counts were down roughly 27%, while average vessel size had
+            increased about 78%.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="map-section reveal-section">
+      <div class="map-section__image">
+        <div class="map-animation">
+          <img
+            class="map-image"
+            src="assets/bosphorus-map-large.png"
+            alt="Illustrated map showing the Bosphorus between the Black Sea and the Sea of Marmara, with Istanbul marked beside the strait"
+          >
+        </div>
+      </div>
+
+      <div class="map-section__text">
+        <p class="eyebrow dark">A NARROW GATEWAY</p>
+
+        <h2>
+          Every ship entering or leaving the Black Sea must pass through here.
+        </h2>
+
+        <p>
+          The strait cuts through Istanbul and forms the only maritime
+          connection between the Black Sea and the Mediterranean.
+        </p>
+      </div>
+    </section>
+
+    <section id="data-story" class="data-scrolly">
+      <div class="data-scrolly__graphic">
+        <div class="chart-header">
+          <p class="eyebrow dark">THE TRAFFIC CHANGED</p>
+
+          <h2 id="chart-title">
+            Fewer vessels crossed the Bosphorus.
+          </h2>
+
+          <p id="chart-subtitle">
+            Annual vessel traffic fell 26.8% between 2006 and 2025.
+          </p>
+        </div>
+
+        <div class="chart-wrapper">
+          <p
+            id="chart-metric-label"
+            class="chart-metric-label"
+          >
+            VESSEL COUNT
+          </p>
+
+          <svg
+            id="changing-chart"
+            role="img"
+            aria-labelledby="chart-title chart-description"
+          ></svg>
+
+          <p id="chart-description" class="sr-only">
+            A changing line chart comparing vessel traffic, total gross tonnage
+            and average gross tonnage per vessel between 2006 and 2025. Each
+            measure is indexed to 100 in 2006.
+          </p>
+        </div>
+
+        <p class="chart-note">
+          Indexed to 2006 = 100. Source: Turkish Ministry of Transport and
+          Infrastructure.
+        </p>
+      </div>
+
+      <div class="data-scrolly__steps">
+        <article
+          class="data-step is-active"
+          data-metric="vessels"
+          data-title="Fewer vessels crossed the Bosphorus."
+          data-subtitle="Annual vessel traffic fell 26.8% between 2006 and 2025."
+          data-label="VESSEL COUNT"
+          data-change="-26.8"
+        >
+          <p class="step__number">01</p>
+
+          <h2>Traffic declined.</h2>
+
+          <p>
+            Nearly 55,000 vessels crossed the Bosphorus in 2006. By 2025,
+            that number had fallen to just over 40,000.
+          </p>
+
+          <div class="data-step__change">
+            <span class="data-step__arrow" aria-hidden="true">↓</span>
+            <span class="data-step__stat">−26.8%</span>
+            <span class="data-step__caption">fewer vessels</span>
+          </div>
+        </article>
+
+        <article
+          class="data-step"
+          data-metric="gross_tonnage"
+          data-title="But the weight moving through the strait increased."
+          data-subtitle="Total gross tonnage rose 30.2% between 2006 and 2025."
+          data-label="TOTAL GROSS TONNAGE"
+          data-change="30.2"
+        >
+          <p class="step__number">02</p>
+
+          <h2>Cargo capacity kept growing.</h2>
+
+          <p>
+            Even as fewer ships passed through the strait, their combined gross
+            tonnage increased from about 476 million to 619 million.
+          </p>
+
+          <div class="data-step__change">
+            <span class="data-step__arrow" aria-hidden="true">↑</span>
+            <span class="data-step__stat">+30.2%</span>
+            <span class="data-step__caption">more gross tonnage</span>
+          </div>
+        </article>
+
+        <article
+          class="data-step"
+          data-metric="avg_gt_per_vessel"
+          data-title="The average vessel became dramatically larger."
+          data-subtitle="Average gross tonnage per vessel increased 77.8%."
+          data-label="AVERAGE TONNAGE PER VESSEL"
+          data-change="77.8"
+        >
+          <p class="step__number">03</p>
+
+          <h2>Each crossing carried more.</h2>
+
+          <p>
+            Average gross tonnage per vessel climbed from roughly 8,670 in 2006
+            to more than 15,400 in 2025.
+          </p>
+
+          <div class="data-step__change">
+            <span class="data-step__arrow" aria-hidden="true">↑</span>
+            <span class="data-step__stat">+77.8%</span>
+            <span class="data-step__caption">larger average vessel</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="ship-mix-section">
+      <div class="ship-mix-section__intro reveal-section">
+        <p class="eyebrow dark">A CHANGING MIX</p>
+
+        <h2>
+          The Bosphorus was not just carrying bigger ships.
+          <span>It was carrying different kinds of ships.</span>
+        </h2>
+
+        <p>
+          The growth was not evenly distributed. Container and chemical tanker
+          traffic climbed over the past two decades, while general cargo
+          crossings steadily declined. The Bosphorus today serves a different
+          mix of vessels than it did in 2006.
+        </p>
+      </div>
+
+      <div class="ship-mix-section__chart reveal-section">
+        <div
+          class="flourish-embed flourish-chart"
+          data-src="visualisation/29793961"
+        >
+          <script src="https://public.flourish.studio/resources/embed.js"></script>
+
+          <noscript>
+            <img
+              src="https://public.flourish.studio/visualisation/29793961/thumbnail"
+              width="100%"
+              alt="Line chart showing changes in annual Bosphorus crossings for bulk carriers, container ships, chemical tankers and general cargo ships from 2006 to 2025, indexed to 2006 equals 100"
+            >
+          </noscript>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
