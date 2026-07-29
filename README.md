@@ -1,9 +1,3 @@
-# Bosphorus visual story starter
+# The Bosphorus Has Changed
 
-Open `index.html` in a browser.
-
-For more reliable local video loading, open Terminal in this folder and run:
-
-python3 -m http.server 8000
-
-Then visit http://localhost:8000
+An interactive scrollytelling project exploring changes in Bosphorus ship traffic from 2006 to 2025.
