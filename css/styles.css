@@ -524,7 +524,7 @@ h1 span {
 .chart-year-label {
   fill: var(--ink-soft);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 600; 
 }
 
 .chart-value-label {
