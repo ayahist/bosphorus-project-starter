@@ -976,3 +976,36 @@ const revealObserver = new IntersectionObserver(
 revealSections.forEach((section) => {
   revealObserver.observe(section);
 });
+
+/* =========================================
+   HERO VIDEO AUTOPLAY
+   ========================================= */
+
+const heroVideo = document.querySelector(".hero__video");
+
+if (heroVideo) {
+  heroVideo.muted = true;
+  heroVideo.defaultMuted = true;
+  heroVideo.playsInline = true;
+
+  const startHeroVideo = () => {
+    const playPromise = heroVideo.play();
+
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {
+        // The browser may retry after page visibility or user interaction changes.
+      });
+    }
+  };
+
+  heroVideo.addEventListener("loadeddata", startHeroVideo, { once: true });
+  window.addEventListener("pageshow", startHeroVideo);
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      startHeroVideo();
+    }
+  });
+
+  startHeroVideo();
+}
