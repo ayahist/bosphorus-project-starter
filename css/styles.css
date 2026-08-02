@@ -1199,3 +1199,232 @@ h1 span {
     font-size:.95rem;
     color:#68788f;
 }
+
+/* =========================================
+   RESPONSIVE STABILITY OVERRIDES
+   Keeps ship graphic, label and story copy
+   inside narrow or short viewports.
+   ========================================= */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.scrolly,
+.scrolly__graphic,
+.ship-stage,
+.ship-label,
+.scrolly__text,
+.step {
+  min-width: 0;
+}
+
+/* Tablet and narrow desktop */
+@media (max-width: 980px) {
+  .scrolly {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.82fr);
+    gap: 2rem;
+    width: min(94%, 1100px);
+  }
+
+  .ship-stage img {
+    transform: scale(1.28);
+  }
+
+  .ship-stage img.is-changing {
+    transform: translateY(8px) scale(1.22);
+  }
+
+  .ship-label {
+    width: min(92%, 680px);
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+
+  .ship-label span {
+    font-size: clamp(2.7rem, 5.8vw, 4.8rem);
+  }
+
+  .ship-label strong {
+    max-width: 260px;
+    font-size: 0.9rem;
+  }
+
+  .step h2 {
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+  }
+}
+
+/* Phones and very narrow browser windows */
+@media (max-width: 800px) {
+  .scrolly {
+    display: block;
+    width: 100%;
+  }
+
+  .scrolly__graphic {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    height: min(48dvh, 430px);
+    min-height: 300px;
+    overflow: hidden;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ship-stage {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    justify-content: space-between;
+    padding: clamp(1rem, 3vh, 1.75rem) 1rem 0.9rem;
+  }
+
+  .ship-stage img {
+    width: min(92%, 560px);
+    height: auto;
+    max-height: calc(100% - 78px);
+    object-fit: contain;
+    transform: scale(1.06);
+    transform-origin: center center;
+  }
+
+  .ship-stage img.is-changing {
+    transform: translateY(6px) scale(1.01);
+  }
+
+  .ship-label {
+    width: min(94%, 560px);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: end;
+    gap: 0.65rem;
+    margin: 0 auto;
+    padding-top: 0.45rem;
+  }
+
+  .ship-label span {
+    min-width: 0;
+    font-size: clamp(1.9rem, 8.5vw, 3rem);
+    line-height: 0.9;
+    white-space: nowrap;
+  }
+
+  .ship-label strong {
+    min-width: 0;
+    max-width: none;
+    text-align: left;
+    font-size: clamp(0.66rem, 2.7vw, 0.82rem);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .scrolly__text {
+    width: min(88%, 560px);
+    margin: 0 auto;
+    padding: 8vh 0 10vh;
+  }
+
+  .step {
+    min-height: 72dvh;
+    padding: 4rem 0;
+  }
+
+  .step h2 {
+    max-width: 100%;
+    font-size: clamp(2.25rem, 10vw, 3.5rem);
+    line-height: 1;
+  }
+
+  .step p {
+    max-width: 100%;
+    font-size: 1rem;
+  }
+}
+
+/* Extra-narrow phones */
+@media (max-width: 390px) {
+  .scrolly__graphic {
+    height: min(46dvh, 390px);
+    min-height: 280px;
+  }
+
+  .ship-stage {
+    padding-inline: 0.75rem;
+  }
+
+  .ship-stage img {
+    width: 96%;
+    max-height: calc(100% - 96px);
+  }
+
+  .ship-label {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 0.25rem;
+    text-align: center;
+  }
+
+  .ship-label span,
+  .ship-label strong {
+    text-align: center;
+  }
+
+  .ship-label strong {
+    max-width: 26ch;
+  }
+
+  .step {
+    min-height: 68dvh;
+  }
+}
+
+/* Short screens: laptops split-screen, landscape phones, browser windows */
+@media (max-height: 760px) and (max-width: 900px) {
+  .scrolly__graphic {
+    height: 44dvh;
+    min-height: 250px;
+  }
+
+  .ship-stage {
+    padding-top: 0.75rem;
+    padding-bottom: 0.65rem;
+  }
+
+  .ship-stage img {
+    max-height: calc(100% - 66px);
+    transform: scale(0.98);
+  }
+
+  .ship-stage img.is-changing {
+    transform: translateY(4px) scale(0.94);
+  }
+
+  .ship-label {
+    margin-top: 0;
+  }
+
+  .scrolly__text {
+    padding-top: 5vh;
+  }
+
+  .step {
+    min-height: 64dvh;
+    padding: 3rem 0;
+  }
+
+  .step h2 {
+    font-size: clamp(2rem, 8vw, 3.1rem);
+  }
+}
+
+/* Avoid automatic iOS text enlargement changing the layout */
+@supports (-webkit-touch-callout: none) {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+}
