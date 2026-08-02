@@ -6,6 +6,12 @@
 
   <title>The Bosphorus Has Changed</title>
 
+  <link
+    href="https://api.mapbox.com/mapbox-gl-js/v3.25.0/mapbox-gl.css"
+    rel="stylesheet"
+  >
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.25.0/mapbox-gl.js"></script>
+
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -17,9 +23,10 @@
       muted
       loop
       playsinline
+      preload="auto"
       aria-hidden="true"
     >
-      <source src="assets/hero-video.mp4" type="video/mp4">
+      <source src="assets/hero-video-fixed.mp4" type="video/mp4">
     </video>
 
     <div class="hero__shade"></div>
@@ -82,9 +89,7 @@
           data-stat="A smaller average vessel"
         >
           <p class="step__number">01</p>
-
           <h2>Start in 2006.</h2>
-
           <p>
             Nearly 55,000 vessels passed through the Bosphorus that year.
             The average ship was much smaller than the vessels crossing today.
@@ -98,9 +103,7 @@
           data-stat="Fewer ships, but larger ones"
         >
           <p class="step__number">02</p>
-
           <h2>The number of crossings began to fall.</h2>
-
           <p>
             But the ships did not simply disappear. The average vessel passing
             through the strait grew larger.
@@ -114,9 +117,7 @@
           data-stat="Average ship size rose about 78%"
         >
           <p class="step__number">03</p>
-
           <h2>By 2025, the traffic looked different.</h2>
-
           <p>
             Vessel counts were down roughly 27%, while average vessel size had
             increased about 78%.
@@ -125,28 +126,57 @@
       </div>
     </section>
 
-    <section class="map-section reveal-section">
-      <div class="map-section__image">
-        <div class="map-animation">
-          <img
-            class="map-image"
-            src="assets/bosphorus-map-large.png"
-            alt="Illustrated map showing the Bosphorus between the Black Sea and the Sea of Marmara, with Istanbul marked beside the strait"
-          >
+    <section id="map-story" class="map-story">
+      <div class="map-story__sticky">
+        <div
+          id="map"
+          role="img"
+          aria-label="Animated map showing the Bosphorus, Turkey, the Black Sea and the Mediterranean"
+        ></div>
+
+        <div class="map-story__scrim"></div>
+
+        <div id="map-overlay" class="map-overlay">
+          <p id="map-kicker" class="eyebrow">A NARROW GATEWAY</p>
+
+          <h2 id="map-heading">
+            A gateway through Istanbul.
+          </h2>
+
+          <p id="map-copy">
+            The Bosphorus cuts through Istanbul, connecting the Black Sea with
+            the Sea of Marmara and, beyond it, the Mediterranean.
+          </p>
         </div>
       </div>
 
-      <div class="map-section__text">
-        <p class="eyebrow dark">A NARROW GATEWAY</p>
+      <div class="map-story__steps">
+        <article
+          class="map-step is-active"
+          data-scene="opening"
+          data-kicker="A NARROW GATEWAY"
+          data-heading="A gateway through Istanbul."
+          data-copy="The Bosphorus cuts through Istanbul, connecting the Black Sea with the Sea of Marmara and, beyond it, the Mediterranean."
+          aria-label="Close view of the Bosphorus through Istanbul"
+        ></article>
 
-        <h2>
-          Every ship entering or leaving the Black Sea must pass through here.
-        </h2>
+        <article
+          class="map-step"
+          data-scene="bosphorus"
+          data-kicker=""
+          data-heading=""
+          data-copy="At its narrowest, the Bosphorus is the only maritime passage between the Black Sea and the Mediterranean."
+          aria-label="The Bosphorus is precisely highlighted without changing the map view"
+        ></article>
 
-        <p>
-          The strait cuts through Istanbul and forms the only maritime
-          connection between the Black Sea and the Mediterranean.
-        </p>
+        <article
+          class="map-step"
+          data-scene="region"
+          data-kicker=""
+          data-heading=""
+          data-copy="The strait links Black Sea ports to the Mediterranean and global shipping routes. Every vessel moving between them must pass through this narrow gateway."
+          aria-label="Map zooms out to show the Black Sea and Mediterranean"
+        ></article>
       </div>
     </section>
 
@@ -165,10 +195,7 @@
         </div>
 
         <div class="chart-wrapper">
-          <p
-            id="chart-metric-label"
-            class="chart-metric-label"
-          >
+          <p id="chart-metric-label" class="chart-metric-label">
             VESSEL COUNT
           </p>
 
@@ -201,9 +228,7 @@
           data-change="-26.8"
         >
           <p class="step__number">01</p>
-
           <h2>Traffic declined.</h2>
-
           <p>
             Nearly 55,000 vessels crossed the Bosphorus in 2006. By 2025,
             that number had fallen to just over 40,000.
@@ -225,9 +250,7 @@
           data-change="30.2"
         >
           <p class="step__number">02</p>
-
           <h2>Cargo capacity kept growing.</h2>
-
           <p>
             Even as fewer ships passed through the strait, their combined gross
             tonnage increased from about 476 million to 619 million.
@@ -249,9 +272,7 @@
           data-change="77.8"
         >
           <p class="step__number">03</p>
-
           <h2>Each crossing carried more.</h2>
-
           <p>
             Average gross tonnage per vessel climbed from roughly 8,670 in 2006
             to more than 15,400 in 2025.
@@ -271,9 +292,8 @@
         <p class="eyebrow dark">A CHANGING MIX</p>
 
         <h2>
-          The Bosphorus was not just carrying bigger ships.
-          <span>It was carrying different kinds of ships.</span>
-        </h2>
+  The Bosphorus carries a different fleet today.
+</h2>
 
         <p>
           The growth was not evenly distributed. Container and chemical tanker
