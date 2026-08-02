@@ -39,16 +39,18 @@ const mapScenes = {
   },
 
   region: {
-    center: [19.2, 42.8],
-    zoom: 3.25,
-    bearing: 0,
-    pitch: 0,
-    turkeyOpacity: 0,
-    bosphorusVisible: false,
-    closeLabelsVisible: false,
-    regionalLabelsVisible: true,
-    overlayMode: "compact"
-  }
+  center: [25.5, 40.5],
+  zoom: 3.25,
+  mobileCenter: [25.8, 39.8],
+  mobileZoom: 2.75,
+  bearing: 0,
+  pitch: 0,
+  turkeyOpacity: 0,
+  bosphorusVisible: false,
+  closeLabelsVisible: false,
+  regionalLabelsVisible: true,
+  overlayMode: "compact"
+}
 };
 
 let map = null;
@@ -331,9 +333,21 @@ function activateMapScene(step) {
     return;
   }
 
-  map.flyTo({
-    center: scene.center,
-    zoom: scene.zoom,
+  const isMobile = window.matchMedia("(max-width: 800px)").matches;
+
+const targetCenter =
+  isMobile && scene.mobileCenter
+    ? scene.mobileCenter
+    : scene.center;
+
+const targetZoom =
+  isMobile && scene.mobileZoom
+    ? scene.mobileZoom
+    : scene.zoom;
+
+map.flyTo({
+  center: targetCenter,
+  zoom: targetZoom,
     bearing: scene.bearing,
     pitch: scene.pitch,
     duration: 1900,
