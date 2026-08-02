@@ -509,7 +509,7 @@ h1 span {
 .ship-mix-section {
   width: min(92%, 1240px);
   margin: 0 auto;
-  padding: 10rem 0 9rem;
+  padding: 10rem 0 2.5rem;
   border-top: 1px solid var(--line);
 }
 
@@ -546,7 +546,8 @@ h1 span {
 
 .ship-mix-section__chart .flourish-embed {
   width: 100%;
-  min-height: 520px;
+  min-height: 0;
+  margin-bottom: 0;
 }
 
 /* =========================================
@@ -1160,4 +1161,41 @@ h1 span {
   .mapboxgl-ctrl-bottom-right {
     bottom: 0.2rem;
   }
+}
+
+.methodology{
+    max-width:900px;
+    margin:0 auto 6rem;
+    padding:0 2rem;
+}
+
+.section-divider{
+    border:0;
+    border-top:1px solid #d8d4cc;
+    margin:0 0 2.5rem;
+}
+
+.methodology-box{
+    background:#fff;
+    border-radius:18px;
+    padding:2.5rem;
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+}
+
+.methodology-box h2{
+    margin:0 0 1.5rem;
+    font-size:2rem;
+    color:var(--ink);
+}
+
+.methodology-box p{
+    max-width:65ch;
+    line-height:1.75;
+    color:#33455f;
+}
+
+.method-source{
+    margin-top:2rem;
+    font-size:.95rem;
+    color:#68788f;
 }
