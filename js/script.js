@@ -39,23 +39,27 @@ const mapScenes = {
   },
 
   region: {
-  center: [25.5, 40.5],
-  zoom: 3.25,
-  mobileCenter: [25.8, 39.8],
-  mobileZoom: 2.75,
-  bearing: 0,
-  pitch: 0,
-  turkeyOpacity: 0,
-  bosphorusVisible: false,
-  closeLabelsVisible: false,
-  regionalLabelsVisible: true,
-  overlayMode: "compact"
-}
+    center: [28.7, 39.7],
+    zoom: 3.7,
+
+    /* Slightly wider framing for portrait phones */
+    mobileCenter: [28.8, 39.4],
+    mobileZoom: 3.05,
+
+    bearing: 0,
+    pitch: 0,
+    turkeyOpacity: 1,
+    bosphorusVisible: true,
+    closeLabelsVisible: false,
+    regionalLabelsVisible: true,
+    overlayMode: "compact"
+  }
 };
 
 let map = null;
 let mapLoaded = false;
 let activeMapScene = "opening";
+
 const closeMapLabels = [];
 const regionalMapLabels = [];
 
@@ -76,7 +80,29 @@ if (mapContainer && typeof mapboxgl !== "undefined") {
     mapLoaded = true;
     map.resize();
 
+    /* Turkey fill */
+
+    map.addSource("turkey-shape", {
+      type: "geojson",
+      data: "data/turkey.geojson"
+    });
+
+    map.addLayer({
+      id: "turkey-fill",
+      type: "fill",
+      source: "turkey-shape",
+      paint: {
+        "fill-color": "#ff5a52",
+        "fill-opacity": 0,
+        "fill-opacity-transition": {
+          duration: 650,
+          delay: 0
+        }
+      }
+    });
+
     /* Precise Bosphorus polygon traced in geojson.io */
+
     map.addSource("bosphorus-precise", {
       type: "geojson",
       data: "data/bosphorus.geojson"
@@ -87,7 +113,7 @@ if (mapContainer && typeof mapboxgl !== "undefined") {
       type: "fill",
       source: "bosphorus-precise",
       paint: {
-        "fill-color": "#ff5a52",
+        "fill-color": "#2f6f8f",
         "fill-opacity": 0,
         "fill-opacity-transition": {
           duration: 550,
@@ -101,45 +127,11 @@ if (mapContainer && typeof mapboxgl !== "undefined") {
       type: "line",
       source: "bosphorus-precise",
       paint: {
-        "line-color": "#ff5a52",
-        "line-width": 2.4,
+        "line-color": "#174a68",
+        "line-width": 3.2,
         "line-opacity": 0,
         "line-opacity-transition": {
           duration: 550,
-          delay: 0
-        }
-      }
-    });
-
-    /* Turkey outline */
-    map.addSource("country-boundaries", {
-      type: "vector",
-      url: "mapbox://mapbox.country-boundaries-v1"
-    });
-
-    const turkeyFilter = [
-      "all",
-      ["==", ["get", "iso_3166_1_alpha_3"], "TUR"],
-      ["==", ["get", "disputed"], "false"],
-      [
-        "any",
-        ["==", ["get", "worldview"], "all"],
-        ["in", "TR", ["get", "worldview"]]
-      ]
-    ];
-
-    map.addLayer({
-      id: "turkey-highlight-outline",
-      type: "line",
-      source: "country-boundaries",
-      "source-layer": "country_boundaries",
-      filter: turkeyFilter,
-      paint: {
-        "line-color": "#ff5a52",
-        "line-width": 2.3,
-        "line-opacity": 0,
-        "line-opacity-transition": {
-          duration: 650,
           delay: 0
         }
       }
@@ -153,10 +145,16 @@ if (mapContainer && typeof mapboxgl !== "undefined") {
       anchor = "center"
     }) {
       const element = document.createElement("div");
-      element.className = `editorial-map-label ${className}`;
+
+      element.className =
+        `editorial-map-label ${className}`;
+
       element.textContent = text;
 
-      new mapboxgl.Marker({ element, anchor })
+      new mapboxgl.Marker({
+        element,
+        anchor
+      })
         .setLngLat(coordinates)
         .addTo(map);
 
@@ -164,9 +162,10 @@ if (mapContainer && typeof mapboxgl !== "undefined") {
     }
 
     /* Close-view labels */
+
     addEditorialLabel({
       coordinates: [29.105, 41.115],
-      text: "Bosphorus",
+      text: "BOSPHORUS",
       className: "editorial-map-label--strait",
       group: closeMapLabels,
       anchor: "left"
@@ -180,8 +179,11 @@ if (mapContainer && typeof mapboxgl !== "undefined") {
       anchor: "left"
     });
 
-    const istanbulDot = document.createElement("div");
-    istanbulDot.className = "editorial-map-label istanbul-map-dot";
+    const istanbulDot =
+      document.createElement("div");
+
+    istanbulDot.className =
+      "editorial-map-label istanbul-map-dot";
 
     new mapboxgl.Marker({
       element: istanbulDot,
@@ -193,37 +195,70 @@ if (mapContainer && typeof mapboxgl !== "undefined") {
     closeMapLabels.push(istanbulDot);
 
     /* Regional labels */
+
     addEditorialLabel({
-      coordinates: [34.2, 43.1],
+      coordinates: [33.0, 43.0],
       text: "BLACK SEA",
       className: "editorial-map-label--regional",
       group: regionalMapLabels
     });
 
     addEditorialLabel({
-      coordinates: [18.0, 35.2],
+      coordinates: [23.2, 35.5],
       text: "MEDITERRANEAN",
       className: "editorial-map-label--regional",
       group: regionalMapLabels
     });
 
-    setTurkeyOutline(false);
-    setBosphorusHighlight(false);
-    setLabelGroupVisible(closeMapLabels, true);
-    setLabelGroupVisible(regionalMapLabels, false);
-    setOverlayMode("full");
+    addEditorialLabel({
+      coordinates: [35.2, 38.7],
+      text: "TURKEY",
+      className: "editorial-map-label--country",
+      group: regionalMapLabels
+    });
+
+    addEditorialLabel({
+      coordinates: [29.18, 41.10],
+      text: "BOSPHORUS",
+      className:
+        "editorial-map-label--regional-strait",
+      group: regionalMapLabels,
+      anchor: "left"
+    });
+
+    /* Establish the opening state immediately */
+
+    setTurkeyHighlight(false);
+
+    setBosphorusHighlight(
+      mapScenes.opening.bosphorusVisible
+    );
+
+    setLabelGroupVisible(
+      closeMapLabels,
+      mapScenes.opening.closeLabelsVisible
+    );
+
+    setLabelGroupVisible(
+      regionalMapLabels,
+      mapScenes.opening.regionalLabelsVisible
+    );
+
+    setOverlayMode(
+      mapScenes.opening.overlayMode
+    );
   });
 }
 
-function setTurkeyOutline(isVisible) {
+function setTurkeyHighlight(isVisible) {
   if (!mapLoaded || !map) {
     return;
   }
 
   map.setPaintProperty(
-    "turkey-highlight-outline",
-    "line-opacity",
-    isVisible ? 1 : 0
+    "turkey-fill",
+    "fill-opacity",
+    isVisible ? 0.22 : 0
   );
 }
 
@@ -247,7 +282,10 @@ function setBosphorusHighlight(isVisible) {
 
 function setLabelGroupVisible(group, isVisible) {
   group.forEach((element) => {
-    element.classList.toggle("is-visible", isVisible);
+    element.classList.toggle(
+      "is-visible",
+      isVisible
+    );
   });
 }
 
@@ -256,7 +294,10 @@ function setOverlayMode(mode) {
     return;
   }
 
-  mapOverlay.classList.remove("is-compact", "is-hidden");
+  mapOverlay.classList.remove(
+    "is-compact",
+    "is-hidden"
+  );
 
   if (mode === "compact") {
     mapOverlay.classList.add("is-compact");
@@ -276,19 +317,25 @@ function updateOverlay(step, mode) {
 
   window.setTimeout(() => {
     if (mapKicker) {
-      mapKicker.textContent = step.dataset.kicker || "";
+      mapKicker.textContent =
+        step.dataset.kicker || "";
     }
 
     if (mapHeading) {
-      mapHeading.textContent = step.dataset.heading || "";
+      mapHeading.textContent =
+        step.dataset.heading || "";
     }
 
     if (mapCopy) {
-      mapCopy.textContent = step.dataset.copy || "";
+      mapCopy.textContent =
+        step.dataset.copy || "";
     }
 
     setOverlayMode(mode);
-    mapOverlay.classList.remove("is-changing");
+
+    mapOverlay.classList.remove(
+      "is-changing"
+    );
   }, 180);
 }
 
@@ -302,30 +349,82 @@ function activateMapScene(step) {
 
   activeMapScene = sceneName;
 
-  mapSteps.forEach((item) => item.classList.remove("is-active"));
+  mapSteps.forEach((item) => {
+    item.classList.remove("is-active");
+  });
+
   step.classList.add("is-active");
 
-  updateOverlay(step, scene.overlayMode);
+  updateOverlay(
+    step,
+    scene.overlayMode
+  );
 
   if (!mapLoaded || !map) {
     return;
   }
 
-  setTurkeyOutline(false);
+  /* Hide everything before revealing the next scene */
+
+  setTurkeyHighlight(false);
   setBosphorusHighlight(false);
-  setLabelGroupVisible(closeMapLabels, false);
-  setLabelGroupVisible(regionalMapLabels, false);
+
+  setLabelGroupVisible(
+    closeMapLabels,
+    false
+  );
+
+  setLabelGroupVisible(
+    regionalMapLabels,
+    false
+  );
+
+  const isMobile =
+    window.matchMedia(
+      "(max-width: 800px)"
+    ).matches;
+
+  const targetCenter =
+    isMobile && scene.mobileCenter
+      ? scene.mobileCenter
+      : scene.center;
+
+  const targetZoom =
+    isMobile && scene.mobileZoom
+      ? scene.mobileZoom
+      : scene.zoom;
+
+  const currentCenter = map.getCenter();
 
   const sameCamera =
-    scene.center[0] === map.getCenter().lng &&
-    scene.center[1] === map.getCenter().lat &&
-    scene.zoom === map.getZoom();
+    Math.abs(
+      targetCenter[0] - currentCenter.lng
+    ) < 0.0001 &&
+    Math.abs(
+      targetCenter[1] - currentCenter.lat
+    ) < 0.0001 &&
+    Math.abs(
+      targetZoom - map.getZoom()
+    ) < 0.0001;
 
   const revealSceneDetails = () => {
-    setTurkeyOutline(sceneName === "region");
-    setBosphorusHighlight(scene.bosphorusVisible);
-    setLabelGroupVisible(closeMapLabels, scene.closeLabelsVisible);
-    setLabelGroupVisible(regionalMapLabels, scene.regionalLabelsVisible);
+    setTurkeyHighlight(
+      scene.turkeyOpacity > 0
+    );
+
+    setBosphorusHighlight(
+      scene.bosphorusVisible
+    );
+
+    setLabelGroupVisible(
+      closeMapLabels,
+      scene.closeLabelsVisible
+    );
+
+    setLabelGroupVisible(
+      regionalMapLabels,
+      scene.regionalLabelsVisible
+    );
   };
 
   if (sameCamera) {
@@ -333,21 +432,9 @@ function activateMapScene(step) {
     return;
   }
 
-  const isMobile = window.matchMedia("(max-width: 800px)").matches;
-
-const targetCenter =
-  isMobile && scene.mobileCenter
-    ? scene.mobileCenter
-    : scene.center;
-
-const targetZoom =
-  isMobile && scene.mobileZoom
-    ? scene.mobileZoom
-    : scene.zoom;
-
-map.flyTo({
-  center: targetCenter,
-  zoom: targetZoom,
+  map.flyTo({
+    center: targetCenter,
+    zoom: targetZoom,
     bearing: scene.bearing,
     pitch: scene.pitch,
     duration: 1900,
@@ -355,24 +442,33 @@ map.flyTo({
     essential: true
   });
 
-  map.once("moveend", revealSceneDetails);
+  map.once(
+    "moveend",
+    revealSceneDetails
+  );
 }
 
-const mapStepObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        activateMapScene(entry.target);
-      }
-    });
-  },
-  {
-    rootMargin: "-44% 0px -44% 0px",
-    threshold: 0
-  }
-);
+const mapStepObserver =
+  new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          activateMapScene(
+            entry.target
+          );
+        }
+      });
+    },
+    {
+      rootMargin:
+        "-44% 0px -44% 0px",
+      threshold: 0
+    }
+  );
 
-mapSteps.forEach((step) => mapStepObserver.observe(step));
+mapSteps.forEach((step) => {
+  mapStepObserver.observe(step);
+});
 
 window.addEventListener("resize", () => {
   if (map) {

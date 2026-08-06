@@ -1285,17 +1285,17 @@ body {
   }
 
   .ship-stage img {
-    width: min(92%, 560px);
-    height: auto;
-    max-height: calc(100% - 78px);
-    object-fit: contain;
-    transform: scale(1.15);
-    transform-origin: center center;
-  }
+  width: min(100%, 680px);
+  height: auto;
+  max-height: calc(100% - 78px);
+  object-fit: contain;
+  transform: scale(1.38);
+  transform-origin: center center;
+}
 
-  .ship-stage img.is-changing {
-    transform: translateY(6px) scale(1.01);
-  }
+.ship-stage img.is-changing {
+  transform: translateY(6px) scale(1.30);
+}
 
   .ship-label {
     width: min(94%, 560px);
@@ -1358,9 +1358,14 @@ body {
   }
 
   .ship-stage img {
-    width: 96%;
-    max-height: calc(100% - 96px);
-  }
+  width: 100%;
+  max-height: calc(100% - 96px);
+  transform: scale(1.32);
+}
+
+.ship-stage img.is-changing {
+  transform: translateY(5px) scale(1.24);
+}
 
   .ship-label {
     grid-template-columns: 1fr;
@@ -1396,13 +1401,13 @@ body {
   }
 
   .ship-stage img {
-    max-height: calc(100% - 66px);
-    transform: scale(0.98);
-  }
+  max-height: calc(100% - 66px);
+  transform: scale(1.18);
+}
 
-  .ship-stage img.is-changing {
-    transform: translateY(4px) scale(0.94);
-  }
+.ship-stage img.is-changing {
+  transform: translateY(4px) scale(1.12);
+}
 
   .ship-label {
     margin-top: 0;
@@ -1426,5 +1431,157 @@ body {
 @supports (-webkit-touch-callout: none) {
   html {
     -webkit-text-size-adjust: 100%;
+  }
+}
+
+/* Regional Turkey and Bosphorus labels */
+
+.editorial-map-label--country {
+  color: var(--ink);
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.9rem, 1.35vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow:
+    0 1px 0 var(--paper),
+    1px 0 0 var(--paper),
+    -1px 0 0 var(--paper),
+    0 -1px 0 var(--paper);
+}
+
+.editorial-map-label--regional-strait {
+  margin-left: 0.45rem;
+  color: var(--accent);
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.58rem, 0.8vw, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow:
+    0 1px 0 var(--paper),
+    1px 0 0 var(--paper),
+    -1px 0 0 var(--paper),
+    0 -1px 0 var(--paper);
+}
+
+@media (max-width: 800px) {
+  .editorial-map-label--country {
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+  }
+
+  .editorial-map-label--regional-strait {
+    margin-left: 0.25rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.07em;
+  }
+}
+
+.editorial-map-label--regional-strait {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #174a68;
+  font-family: "Inter", sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow:
+    0 1px 0 var(--paper),
+    1px 0 0 var(--paper),
+    -1px 0 0 var(--paper),
+    0 -1px 0 var(--paper);
+}
+
+.editorial-map-label--regional-strait::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  flex: 0 0 auto;
+  background: #174a68;
+}
+
+@media (max-width: 800px) {
+  .editorial-map-label--regional-strait {
+    gap: 0.3rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.07em;
+  }
+
+  .editorial-map-label--regional-strait::before {
+    width: 14px;
+    height: 1.5px;
+  }
+}
+
+/* =========================================
+   FINAL BOSPHORUS LABEL FIX
+   ========================================= */
+
+.editorial-map-label--strait {
+  margin-left: 0.72rem;
+  color: var(--ink);
+  font-family: "Inter", sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow:
+    0 1px 0 var(--paper),
+    1px 0 0 var(--paper),
+    -1px 0 0 var(--paper),
+    0 -1px 0 var(--paper);
+}
+
+.editorial-map-label--regional-strait {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: 0.15rem;
+  color: #174a68;
+  font-family: "Inter", sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow:
+    0 1px 0 var(--paper),
+    1px 0 0 var(--paper),
+    -1px 0 0 var(--paper),
+    0 -1px 0 var(--paper);
+}
+
+.editorial-map-label--regional-strait::before {
+  content: "";
+  width: 18px;
+  height: 2px;
+  flex: 0 0 auto;
+  background: #174a68;
+}
+
+@media (max-width: 800px) {
+  .editorial-map-label--strait {
+    margin-left: 0.45rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+  }
+
+  .editorial-map-label--regional-strait {
+    gap: 0.25rem;
+    margin-left: 0.05rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.06em;
+  }
+
+  .editorial-map-label--regional-strait::before {
+    width: 12px;
+    height: 1.5px;
   }
 }
