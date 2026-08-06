@@ -1104,7 +1104,7 @@ h1 span {
 
 .editorial-map-label--city {
   margin-left: 0.7rem;
-  font-size: 0.84rem;
+  font-size: 1rem;
 }
 
 .editorial-map-label--regional {
@@ -1576,7 +1576,7 @@ body {
   .editorial-map-label--regional-strait {
     gap: 0.25rem;
     margin-left: 0.05rem;
-    font-size: 0.5rem;
+    font-size: 0.85rem;
     letter-spacing: 0.06em;
   }
 
